@@ -2,7 +2,7 @@
 针对 React16 和 webpack4  
 以下根据渲染时间排序  
 
-##1. 首屏之前
+## 1.首屏之前
 ---
 在SPA应用中，他们会以以下方式启动：  
 1. html模版文件提供root节点
@@ -58,7 +58,7 @@ var config = {
 </body>
 </html>
 ```
-##### 2.使用 prerender-spa-plugin
+#####  2.使用 prerender-spa-plugin
 ```
 plugins: [
   new PrerenderSpaPlugin(
@@ -67,11 +67,11 @@ plugins: [
   )
 ]
 ```
-##### ~~3.去掉css外链~~
+#####  ~~3.去掉css外链~~
 
 ##2. 首次内容渲染
 这部分内容会对js代码部分进行优化一般情况下，我们可以将代码分类为    
-##### 1.基础框架  
+#####  1.基础框架  
 缓存基础框架代码
 以下是HTTP缓存方案，来自另外一篇博文  
 1.expires
@@ -90,7 +90,7 @@ cache-control: max-age=31536000
    
 优先级：cache-control > expires > etag > last-modified  
 
-##### 2.polyfill  
+#####  2.polyfill  
 使用动态polyfill
 ```
 <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
@@ -100,10 +100,10 @@ cache-control: max-age=31536000
 ```
 动态polyfill原理： 它会根据你的浏览器 UA 头，判断你是否支持某些特性，从而返回给你一个合适的 polyfill。  
 
-##### 3.业务基础库
+#####  3.业务基础库
 webpack4把 CommonChunksPlugin 抛弃，转而使用SplitChunksPlugin，用于提取公用代码。它会依据模块依赖关系自动打出很多小模块，保证加载进来的代码一定会被依赖到。避免重复加载。4月份发布到现在目前还有一些小坑，一开始把我坑惨了，等待成熟中。  
 
-##### 4.业务代码
+#####  4.业务代码
 使用Tree Shaking减少业务代码体积  
 
 例如我们有下面一个使用了 ES Module标准的模块：
@@ -141,8 +141,8 @@ function isString(x) {
 ```
 注意，这里任然存在我们未引用的isNumber方法，但是多了一行/* unused harmony export isNumber */  
 在压缩阶段会丢弃isNumber  
-##### 注意⚠️
-使用Tree Shaking的时候把babel默认的模块转义关闭   
+#####  注意⚠️
+使用Tree Shaking的时候把babel默认的模块转义关闭   
 ```
 {
   "presets": [
@@ -154,8 +154,8 @@ function isString(x) {
 }
 ```
 
-##### 更多优化
-1. 使用Code Splitting  
+##### 更多优化
+1. 使用Code Splitting  
 一般情况下打包工具会把我们的代码打包成一个很大的bundle，随着项目的庞大，bundle也日益庞大。  
 这个时候我们就需要进行代码分割，Code Splitting 可以实现“懒加载”代码，把一个大的bundle拆分成 bundle + 多份动态代码的形式  
 import 
