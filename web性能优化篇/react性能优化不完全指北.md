@@ -22,7 +22,7 @@ ReactDOM.render(
 3.css文件(如果有的话)  
 第一次加载会有很长一段时间是空白的！
 ### 优化方案：
-#####1. 在html文件上做手脚，例如：
+#####  1.在html文件上做手脚，例如：
 ```
 <div id="root"><!-- 我是一个动画 --></div>
 ```
@@ -81,7 +81,7 @@ plugins: [
 ```
 cache-control: max-age=31536000
 ```
-设置过期时间(s)，可以避免1中的缺陷，比较常用对一种方案。  
+设置过期时间(s)，可以避免1中的缺陷，比较常用对一种方案。  
 3.last-modified / if-modified-since  
 这是一组请求/响应头    
 通过对比modified时间来控制缓存  
@@ -98,7 +98,7 @@ cache-control: max-age=31536000
 <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Map,Set"></script>
 
 ```
-动态polyfill原理： 它会根据你的浏览器 UA 头，判断你是否支持某些特性，从而返回给你一个合适的 polyfill。  
+动态polyfill原理： 它会根据你的浏览器 UA 头，判断你是否支持某些特性，从而返回给你一个合适的 polyfill。  
 
 #####  3.业务基础库
 webpack4把 CommonChunksPlugin 抛弃，转而使用SplitChunksPlugin，用于提取公用代码。它会依据模块依赖关系自动打出很多小模块，保证加载进来的代码一定会被依赖到。避免重复加载。4月份发布到现在目前还有一些小坑，一开始把我坑惨了，等待成熟中。  
@@ -157,7 +157,7 @@ function isString(x) {
 ##### 更多优化
 1. 使用Code Splitting  
 一般情况下打包工具会把我们的代码打包成一个很大的bundle，随着项目的庞大，bundle也日益庞大。  
-这个时候我们就需要进行代码分割，Code Splitting 可以实现“懒加载”代码，把一个大的bundle拆分成 bundle + 多份动态代码的形式  
+这个时候我们就需要进行代码分割，Code Splitting 可以实现“懒加载”代码，把一个大的bundle拆分成 bundle + 多份动态代码的形式  
 import 
 ```
 import { add } from './math';
