@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var fn1 = function (a) {
+            // "use strict";
+            console.log(a, b);
+            b = 2;
+        }
+        fn1(1)
+        // console.log(c)
+        var a = true;
+        if (a) {
+            var b = 2;
+        }
+        console.log(b)
+        var MyModules = (function Manager() {
+            var modules = {};
+
+            function define(name, deps, impl) {
+                for (var i = 0; i < deps.length; i++) {
+                    deps[i] = module[deps[i]];
+                }
+                module[name] = impl.apply(impl, deps); //核心代码，为了模块的定义引入了包装函数，并将返回值，储存在一个根据名字来管理的模块列表中。
+            }
+
+            function get(name) {
+                return module[name];
+            }
+            return {
+                define: define,
+                get: get
+            }
+        });
+
+        function foo() {
+            console.log(a); // 2
+        }
+
+        function bar() {
+            var a = 3;
+            foo();
+        }
+        var a = 2;
+        bar();
+    </script>
+</body>
+
+</html>
