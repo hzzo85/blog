@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function handleData(data, template) {
+      if (data !== null && (typeof data === 'object' || Array.isArray(data))) {
+        if (Array.isArray(template) && Array.isArray(data)) {
+          // console.log(data, template[0])
+          data.forEach((i) => {
+            handleData(i, template[0]);
+          });
+        } else if (typeof data === 'object') {
+          Object.keys(data).forEach((i) => {
+            if (Object.hasOwnProperty.call(template, i)) {
+              if (typeof template[i] === 'function') {
+                data[i] = template[i].call(this, data[i]);
+              } else {
+                handleData(data[i], template[i]);
+              }
+            } else {
+              delete data[i];
+            }
+          })
+        }
+      }
+      return data;
+    }
+    var a = {
+      a: 1,
+      b: 'b',
+      c: null,
+      d: undefined,
+      e: [{
+        ea: '1',
+        eb: 12,
+        ec: [{
+          eca: 1,
+          ecb: null,
+          ecc: []
+        }]
+      }, {
+        ea: 'asd',
+        eb: 123,
+        ec: [{
+          eca: 1,
+          ecb: undefined,
+          ecc: [1, 2]
+        }]
+      }],
+      f: {
+        fa: 3,
+        fb: 'b',
+        fc: 'asdas',
+      },
+      x: 1,
+      y: undefined,
+      z: [1, 2]
+    }
+    var temp = {
+      a: (i) => {
+        return 2 * i
+      },
+      b: 'b',
+      d: undefined,
+      e: [{
+        ea: '1',
+        ec: [{
+          eca: 1,
+          ecc: []
+        }]
+      }],
+      f: {
+        fc: 'asdas',
+      },
+    }
+    console.log(handleData(a, temp))
+  </script>
+</body>
+
+</html>
