@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function handleData(data, mould = {}) {
+      if (Array.isArray(mould)) {
+        if (Array.isArray(data) && mould.length === 1) {
+          data.forEach((i) => {
+            handleData(i, mould[0]);
+          });
+        } else {
+          throw new Error('the Array length is not require');
+        }
+      } else if (typeof mould === 'object') {
+        Object.keys(data).forEach((i) => {
+          if (Object.hasOwnProperty.call(mould, i)) {
+            if (Array.isArray(mould[i]) && Array.isArray(data[i])) {
+              data[i].forEach((j) => {
+                handleData(j, mould[i][0]);
+              })
+            } 
+            if (typeof mould[i] === 'function') {
+              data[i] = mould[i].call(this, data[i]);
+            }
+          } else {
+            delete data[i];
+          }
+        });
+      }
+      return data;
+    }
+    var a = {
+      a: 1,
+      b: 'b',
+      c: null,
+      d: undefined,
+      e: [{
+        ea: '1',
+        eb: 12,
+        ec: [{
+          eca: 1,
+          ecb: null,
+          ecc: []
+        }]
+      }, {
+        ea: 'asd',
+        eb: 123,
+        ec: [{
+          eca: 1,
+          ecb: undefined,
+          ecc: [1, 2]
+        }]
+      }],
+      f: {
+        a: 1,
+        b: 'b',
+        c: 'asdas',
+      },
+      x: 1,
+      y: undefined,
+      z: [1, 2]
+    }
+    var temp = {
+      a: 1,
+      b: 'b',
+      d: undefined,
+      e: [{
+        ea: '1',
+        eb: 12,
+        ec: [{
+          eca: 1,
+          ecc: []
+        }]
+      }],
+      f: {
+        c: 'asdas',
+      },
+    }
+    console.log(handleData(a, temp))
+  </script>
+</body>
+
+</html>

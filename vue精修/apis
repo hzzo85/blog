@@ -1,0 +1,26 @@
+$set()  设置vue属性
+$delete()  移除vue属性 合理利用可防止内存溢出
+$nextTick()  异步渲染后调用  操作dom节点
+
+lifecycle
+beforeCreate
+created
+beforeMount （服务端渲染不要用）
+mounted （服务端渲染不要用）
+beforeUpdae
+updated
+activated
+deactivted
+beforeDestory
+destoryed
+
+watch: {   // 监听到数据变化做指定操作
+  name: {
+    handler(newName, oldName) {
+      console.log(newName)
+    },
+    immediate: true,
+    deep: true, // 慎用
+  }
+}
+

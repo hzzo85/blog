@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>访问器属性</title>
+</head>
+<button onclick="fn1()">fn1</button>
+<button onclick="fn2()">fn2</button>
+<button onclick="fn3()">fn3</button>
+<button onclick="fn4()">fn4</button>
+<body>
+
+    <script>
+        fn1 = function () {
+            var person = {
+                _name: 'yangte',
+                get name() {
+                    console.log('read');
+                    return this._name;
+                },
+                set name(value) {
+                    console.log('set');
+                    this._name = value;
+                }
+            }
+            console.log(person.name);
+            person.name = 'ytto';
+            console.log(person.name);
+        }
+
+        fn2 = function () {
+            var person1 = {
+                name: 'yangte',
+                sayName: function () {
+                    console.log(this.name);
+                }
+            }
+            var person2 = Object.create(person1, {
+                name: {
+                    configurable: true,
+                    enumerable: true,
+                    value: 'te',
+                    writable: true
+                }
+            })
+            person1.sayName();
+            person2.sayName();
+        }
+        
+        fn3 = function () {
+            var person = (function() {
+                var age = 25;
+                return {
+                    name: 'yangte',
+                    get age() {
+                        return age
+                    },
+                    old: function() {
+                        return ++age;
+                    }
+                }
+            })();
+            person.age = 100;
+            console.log(person.age)
+            console.log(person.old())
+        }
+
+        fn4 = function() {
+            var person = {
+                _name: 'te',
+                get name() {
+                    return this._name;
+                },
+            }
+            for (var i in person) {
+                if (person.hasOwnProperty(i)) {
+                    console.log(i, person[i]);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
