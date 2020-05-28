@@ -1,5 +1,10 @@
 # dsbridge 简析
 
+### 
+js和java交互无非这两种方法：
+第一种就是系统提供的webview.addJavascriptInterface，
+第二种就是WebViewClient.shouldOverrideUrlLoading。
+
 一下内容会以以 javascript 代码 和 java 为例，简析 dsbridege
 
 ### call
@@ -47,8 +52,9 @@ var bridge = {
     var q = asyn ? window._dsaf : window._dsf;
     if (!window._dsInit) {
       window._dsInit = true;
-      //notify native that js apis register successfully on next event loop
+      //在下一个事件循环调用
       setTimeout(function() {
+        // 通知客户端 并且调用 _handleMessageFromNative
         bridge.call("_dsb.dsinit");
       }, 0);
     }
@@ -90,12 +96,16 @@ var bridge = {
     close: function() {
       bridge.call("_dsb.closePage");
     },
+    // 在js初始化完成后被客户端调用
     _handleMessageFromNative: function(info) {
+      //info 客户端维护的CallInfo类
+      // 有 data、callbackId，method 3个属性
       var arg = JSON.parse(info.data);
       var ret = {
         id: info.callbackId,
         complete: true
       };
+      // 从同步/异步map中获取方法
       var f = this._dsf[info.method];
       var af = this._dsaf[info.method];
       var callSyn = function(f, ob) {
@@ -135,8 +145,9 @@ var bridge = {
           return;
         }
       }
-    }
+    },
   };
+
   for (var attr in ob) {
     // 在window下注入属性
     window[attr] = ob[attr];
@@ -156,8 +167,10 @@ var bridge = {
 })();
 ```
 
+### 安卓部分
+
 ```java
-  // 这边过来的是 prompt("_dsbridge=" + method, {
+  // 这边过来的是参数是 ("_dsbridge=" + method, {
   //  data: args,
   //  _dscbstub: cbname
   // });
@@ -235,5 +248,5 @@ private void _evaluateJavascript(String script) {
 
 #### 参考资料
 
-[H5页面与原生交互的方法之 一、addJavascriptInterface](https://www.jianshu.com/p/07f2e1364f35)
-[最好用的跨平台Js bridge新秀-DSBridge 安卓篇](https://www.jianshu.com/p/f9c51b4a8135)
+[H5 页面与原生交互的方法之 一、addJavascriptInterface](https://www.jianshu.com/p/07f2e1364f35)
+[最好用的跨平台 Js bridge 新秀-DSBridge 安卓篇](https://www.jianshu.com/p/f9c51b4a8135)
