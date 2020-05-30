@@ -1,0 +1,19 @@
+{
+  "name": "es5target",
+  "version": "1.0.0",
+  "description": "",
+  "main": "extend.js",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-object-assign": "^7.10.1",
+    "@babel/preset-env": "^7.9.5",
+    "@rollup/plugin-babel": "^5.0.2",
+    "rollup": "^1.6.0",
+    "signale": "^1.4.0"
+  }
+}
