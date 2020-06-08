@@ -13,6 +13,7 @@
     "@babel/plugin-transform-object-assign": "^7.10.1",
     "@babel/preset-env": "^7.9.5",
     "@rollup/plugin-babel": "^5.0.2",
+    "core-js": "^3.6.5",
     "rollup": "^1.6.0",
     "signale": "^1.4.0"
   }

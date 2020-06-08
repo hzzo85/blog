@@ -9,7 +9,6 @@ module.exports = {
           ie: '10',
           android: '5',
           ios: '9',
-          // browsers: ['> 1%', 'last 2 versions', 'not ie <= 8'],
         },
       },
     ],

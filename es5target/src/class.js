@@ -17,9 +17,6 @@ function _createClass(Constructor, protoProps, staticProps) {
 var ClsName = (function () {
   // 执行constructor
   function ClsName(name) {
-    if (!(this instanceof ClsName)) {
-      throw new TypeError('Cannot call a class as a function');
-    }
     this.name = name;
   }
 

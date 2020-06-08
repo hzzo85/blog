@@ -2,10 +2,10 @@ import { getBabelOutputPlugin } from '@rollup/plugin-babel';
 import path from 'path';
 
 export default {
-  input: 'source/extend.js',
+  input: 'source/generator.js',
   output: [
     {
-      file: 'lib/extend.js',
+      file: 'lib/generator.js',
       format: 'es',
     },
     // { file: 'lib/track.cjs.js', format: 'cjs', name: 'track' },
